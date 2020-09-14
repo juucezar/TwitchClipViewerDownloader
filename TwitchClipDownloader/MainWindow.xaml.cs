@@ -20,9 +20,17 @@ namespace TwitchClipDownloader
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public  MainWindow()
         {
             InitializeComponent();
+            Clip clip = new Clip();
+            Task taskClip = new Task(async () => await clip.getClipByGameId("488552"));
+            taskClip.Start();
+
+            //Game game = new Game();
+            //Task taskGame = new Task(async () => await game.GetGameByName("Overwatch"));
+            //taskGame.Start();
         }
+       
     }
 }
