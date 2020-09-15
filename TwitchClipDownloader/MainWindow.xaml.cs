@@ -22,9 +22,15 @@ namespace TwitchClipDownloader
     {
         public  MainWindow()
         {
+            Authentication authentication = Authenticate();          
+
+
             InitializeComponent();
+
+
+
             Clip clip = new Clip();
-            Task taskClip = new Task(async () => await clip.getClipByGameId("488552"));
+            Task taskClip = new Task(async () => await clip.getClipByGameId(authentication,"488552"));
             taskClip.Start();
 
             //Game game = new Game();
@@ -32,5 +38,17 @@ namespace TwitchClipDownloader
             //taskGame.Start();
         }
        
+        public Authentication Authenticate()
+        {
+            Authentication authentication = new Authentication();
+
+            Task<Authentication> task = Task.Factory.StartNew(() => authentication.getAccessTokenAsync());
+            task.Wait();
+            while (task.IsCompleted)
+            {
+                return task.Result;
+            }
+            return null;
+        }
     }
 }

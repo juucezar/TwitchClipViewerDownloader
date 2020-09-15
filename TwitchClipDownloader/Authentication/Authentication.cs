@@ -5,15 +5,16 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace TwitchClipDownloader
 {
     public class Authentication
     {
-        private string url = "https://id.twitch.tv/oauth2/token?";
-        public string client_id = "4zcl8fnt0vp56kxmei7c1il9upoh7n";
-        private string client_secret = "ivl0h0oyon2a219dpt86jzb597cv0b";
-        private string grant_type = "client_credentials";
+        private string url = ConfigurationManager.AppSettings["urlAuthentication"];
+        public string client_id = ConfigurationManager.AppSettings["client_id"];
+        private string client_secret = ConfigurationManager.AppSettings["client_secret"];
+        private string grant_type = ConfigurationManager.AppSettings["grant_type"];
         public string access_token { get; set; }
         public int expires_in { get; set; }
         public string token_type { get; set; }
