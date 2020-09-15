@@ -21,16 +21,11 @@ namespace TwitchClipDownloader
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Authentication authentication = new Authentication();
         public  MainWindow()
         {
-            Authentication authentication = Authenticate();          
-
-
+            authentication = Authenticate();  
             InitializeComponent();
-
-            //Game game = new Game();
-            //Task taskGame = new Task(async () => await game.GetGameByName("Overwatch"));
-            //taskGame.Start();
         }
        
         public Authentication Authenticate()
@@ -48,7 +43,7 @@ namespace TwitchClipDownloader
 
         private void btnTopJogos_Click(object sender, RoutedEventArgs e)
         {
-            GamesView gamesView = new GamesView();
+            GamesView gamesView = new GamesView(authentication);
             gamesView.Show();
         }
     }

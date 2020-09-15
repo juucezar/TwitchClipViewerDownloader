@@ -22,19 +22,18 @@ namespace TwitchClipDownloader.Games
     public partial class GamesView : Window
     {
         private GamesModel gamesModel = new GamesModel();
-        public GamesView()
+        public GamesView(Authentication authentication)
         {
             
             InitializeComponent();
 
-            gamesModel = Start();
+            gamesModel = Start(authentication);
             //datagridGames.ItemsSource = gamesModel.data;
             lbGames.ItemsSource = gamesModel.data;
         }
 
-        private GamesModel Start()
+        private GamesModel Start(Authentication authentication)
         {
-            Authentication authentication = Authenticate();
             Game game = new Game();
             Task<GamesModel> taskGame = Task.Factory.StartNew(() => game.GetTopGames(authentication));
             taskGame.Wait();           
@@ -44,8 +43,7 @@ namespace TwitchClipDownloader.Games
                 foreach (var item in taskGame.Result.data)
                 {
                     item.box_art_url = Regex.Replace(item.box_art_url, "{height}", "200", RegexOptions.IgnoreCase);
-                    item.box_art_url = Regex.Replace(item.box_art_url, "{width}", "150", RegexOptions.IgnoreCase);
-                
+                    item.box_art_url = Regex.Replace(item.box_art_url, "{width}", "150", RegexOptions.IgnoreCase);                
                 }
                 return taskGame.Result;
             }
@@ -63,6 +61,11 @@ namespace TwitchClipDownloader.Games
                 return task.Result;
             }
             return null;
+        }        
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var v = sender as GamesModel;
         }
     }
 }

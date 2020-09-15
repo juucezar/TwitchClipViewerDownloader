@@ -7,26 +7,38 @@
         mc:Ignorable="d"
         Title="GamesView" Height="450" Width="800">
     <Grid Background="gray">
-        <ListBox x:Name="lbGames" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="1" x:Name="txtSearchGame" MaxWidth="300" MaxHeight="50"/>
+            <Button Grid.Column="2" Name="btnSearchGame" Width="50" Height="50" />
+        </Grid>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel>
-                        
-                    </WrapPanel>
+                    <WrapPanel/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <ListBox>
-                        <ListBoxItem >
-                            <Image Source="{Binding box_art_url}"/>
+                        <ListBoxItem x:Name="lbGame">
+                            <Button Click="Button_Click">
+                                <StackPanel>
+                                    <Image Source="{Binding box_art_url}"/>
+                                    <Label MaxWidth="150" Content="{Binding name}"/>
+                                </StackPanel>                                  
+                            </Button>                            
                         </ListBoxItem>
-                        <ListBoxItem>
-                            <Label Content="{Binding name}"/>
-                        </ListBoxItem>
-                    </ListBox>                    
+                    </ListBox>
                 </DataTemplate>
-            </ListBox.ItemTemplate>            
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </Window>
