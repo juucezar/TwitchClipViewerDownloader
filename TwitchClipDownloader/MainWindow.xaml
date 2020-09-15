@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:TwitchClipDownloader"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="gray">
+        <Canvas>
+            <Button x:Name="btnTopJogos" Height="50" Width="200" Canvas.Left="300" Canvas.Top="155" Click="btnTopJogos_Click">Top jogos</Button>
+        </Canvas>
     </Grid>
 </Window>

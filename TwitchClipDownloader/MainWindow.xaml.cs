@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TwitchClipDownloader.Games;
 
 namespace TwitchClipDownloader
 {
@@ -26,12 +27,6 @@ namespace TwitchClipDownloader
 
 
             InitializeComponent();
-
-
-
-            Clip clip = new Clip();
-            Task taskClip = new Task(async () => await clip.getClipByGameId(authentication,"488552"));
-            taskClip.Start();
 
             //Game game = new Game();
             //Task taskGame = new Task(async () => await game.GetGameByName("Overwatch"));
@@ -49,6 +44,12 @@ namespace TwitchClipDownloader
                 return task.Result;
             }
             return null;
+        }
+
+        private void btnTopJogos_Click(object sender, RoutedEventArgs e)
+        {
+            GamesView gamesView = new GamesView();
+            gamesView.Show();
         }
     }
 }

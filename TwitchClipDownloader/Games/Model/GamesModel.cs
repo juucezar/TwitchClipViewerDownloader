@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TwitchClipDownloader
 {
-    public class Games
+    public class GamesModel
     {
-        public GameInfo[] data { get; set; }
+        public List<GameInfo> data { get; set; }
         public PaginationGames pagination { get; set; }
     }
     public class PaginationGames

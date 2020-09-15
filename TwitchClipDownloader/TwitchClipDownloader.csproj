@@ -59,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Games\GamesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,7 +74,10 @@
     <Compile Include="Authentication\Authentication.cs" />
     <Compile Include="Clips\Clip.cs" />
     <Compile Include="Clips\Model\ClipModel.cs" />
-    <Compile Include="Games\Games.cs" />
+    <Compile Include="Games\Game.cs" />
+    <Compile Include="Games\GamesView.xaml.cs">
+      <DependentUpon>GamesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Games\Model\GamesModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

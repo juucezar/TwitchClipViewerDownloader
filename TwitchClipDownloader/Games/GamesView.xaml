@@ -1,0 +1,32 @@
+﻿<Window x:Class="TwitchClipDownloader.Games.GamesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TwitchClipDownloader.Games"
+        mc:Ignorable="d"
+        Title="GamesView" Height="450" Width="800">
+    <Grid Background="gray">
+        <ListBox x:Name="lbGames" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel>
+                        
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ListBox>
+                        <ListBoxItem >
+                            <Image Source="{Binding box_art_url}"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <Label Content="{Binding name}"/>
+                        </ListBoxItem>
+                    </ListBox>                    
+                </DataTemplate>
+            </ListBox.ItemTemplate>            
+        </ListBox>
+    </Grid>
+</Window>
