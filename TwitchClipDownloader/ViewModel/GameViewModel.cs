@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
@@ -10,14 +11,45 @@ using System.Threading.Tasks;
 
 namespace TwitchClipDownloader
 {
-    public class Game
+    class GameViewModel : ViewModelBase
     {
+        private Authentication authentication;
+        private ObservableCollection<GameInfo> data= new ObservableCollection<GameInfo>();
+        public ObservableCollection<GameInfo> Data
+        {
+            get { return data; }
+            set
+            {
+                if (value != this.data)
+                    data = value;
+
+                this.SetPropertyChanged("GamesInfo");
+            }
+        }
+
         private string url = ConfigurationManager.AppSettings["urlGame"];
 
-        public Game() { }
-        public async Task<GamesModel> GetGameByName(Authentication authentication, string name)
+        public GameViewModel() 
         {
-            GamesModel games = new GamesModel();
+            authentication = Authenticate();
+            GetTopGames(authentication);
+        }
+
+        public Authentication Authenticate()
+        {
+            Authentication authentication = new Authentication();
+
+            Task<Authentication> task = Task.Factory.StartNew(() => authentication.getAccessTokenAsync());
+            task.Wait();
+            while (task.IsCompleted)
+            {
+                return task.Result;
+            }
+            return null;
+        }
+
+        public async void GetGameByName(Authentication authentication, string name)
+        {
             using (HttpClient httpClient = new HttpClient())
             {
                 UriBuilder builder = new UriBuilder(url);
@@ -29,15 +61,14 @@ namespace TwitchClipDownloader
 
                 Task<string> responseJson = response.Content.ReadAsStringAsync();
                 responseJson.Wait();
-                games = JsonConvert.DeserializeObject<GamesModel>(responseJson.Result);
-
-                return games;
+                GamesModel games = JsonConvert.DeserializeObject<GamesModel>(responseJson.Result);
+                foreach (var v in games.Data)
+                    Data.Add(v);
             }
 
         }
-        public async Task<GamesModel> GetGameById(Authentication authentication, string id)
+        public async void GetGameById(Authentication authentication, string id)
         {
-            GamesModel games = new GamesModel();
             using (HttpClient httpClient = new HttpClient())
             {
                 UriBuilder builder = new UriBuilder(url);
@@ -49,16 +80,16 @@ namespace TwitchClipDownloader
 
                 Task<string> responseJson = response.Content.ReadAsStringAsync();
                 responseJson.Wait();
-                games = JsonConvert.DeserializeObject<GamesModel>(responseJson.Result);
-
-                return games;
+                GamesModel games = JsonConvert.DeserializeObject<GamesModel>(responseJson.Result);
+                foreach (var v in games.Data)
+                    Data.Add(v);
             }
 
         }
-
-        public GamesModel GetTopGames(Authentication authentication)
+        public void GetTopGames(Authentication authentication)
         {
-            GamesModel games = new GamesModel();
+             
+            this.Data = new ObservableCollection<GameInfo>();
             using (HttpClient httpClient = new HttpClient())
             {
                 UriBuilder builder = new UriBuilder(ConfigurationManager.AppSettings["urlTopGame"]);
@@ -69,15 +100,14 @@ namespace TwitchClipDownloader
 
                 Task<string> responseJson = response.Content.ReadAsStringAsync();
                 responseJson.Wait();
-                games = JsonConvert.DeserializeObject<GamesModel>(responseJson.Result);
+                GamesModel games = JsonConvert.DeserializeObject<GamesModel>(responseJson.Result);
 
-                return games;
+                foreach (var v in games.Data)
+                    Data.Add(v);
+
             }
 
         }
 
     }
-
-
-
 }

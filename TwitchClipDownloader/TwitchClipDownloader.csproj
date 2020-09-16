@@ -59,6 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="ViewModel\GameViewModel.cs" />
     <Page Include="Games\GamesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -74,7 +76,6 @@
     <Compile Include="Authentication\Authentication.cs" />
     <Compile Include="Clips\Clip.cs" />
     <Compile Include="Clips\Model\ClipModel.cs" />
-    <Compile Include="Games\Game.cs" />
     <Compile Include="Games\GamesView.xaml.cs">
       <DependentUpon>GamesView.xaml</DependentUpon>
     </Compile>
@@ -111,5 +112,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
