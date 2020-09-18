@@ -8,11 +8,15 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace TwitchClipDownloader
 {
     class GameViewModel : ViewModelBase
     {
+       
         private Authentication authentication;
         private ObservableCollection<GameInfo> data= new ObservableCollection<GameInfo>();
         public ObservableCollection<GameInfo> Data
@@ -102,12 +106,12 @@ namespace TwitchClipDownloader
                 responseJson.Wait();
                 GamesModel games = JsonConvert.DeserializeObject<GamesModel>(responseJson.Result);
 
-                foreach (var v in games.Data)
-                    Data.Add(v);
+                foreach (var itens in games.Data)
+                    Data.Add(itens);
 
             }
 
+            
         }
-
     }
 }

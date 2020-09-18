@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
+using TwitchClipDownloader.Clips;
 
 namespace TwitchClipDownloader
 {
 
-    public class Clips
+    public class ClipModel
     {
-        public ClipInfo[] data { get; set; }
+        public List<ClipInfo> data { get; set; }
         public PaginationClip pagination { get; set; }
     }
 
@@ -34,6 +37,27 @@ namespace TwitchClipDownloader
         public int view_count { get; set; }
         public DateTime created_at { get; set; }
         public string thumbnail_url { get; set; }
+
+        private bool CanExecute = true;
+        private ICommand buttonCommand;
+        public ICommand ButtonCommand
+        {
+            get
+            {
+                if (buttonCommand == null)
+                {
+                    buttonCommand = new RelayCommand(p => this.CanExecute, p => this.Teste(p));
+                }
+                return buttonCommand;
+            }
+        }
+
+        private void Teste(object url)
+        {
+            ClipsView clipsView = new ClipsView();
+            clipsView.playMedia(url.ToString());
+        }
+
     }
 
 }

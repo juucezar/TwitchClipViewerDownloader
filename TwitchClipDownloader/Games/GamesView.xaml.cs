@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,7 +23,7 @@ namespace TwitchClipDownloader.Games
     public partial class GamesView : Window
     {
         public GamesView(Authentication authentication)
-        {            
+        {
             InitializeComponent();
         }
         public Authentication Authenticate()
@@ -36,11 +37,8 @@ namespace TwitchClipDownloader.Games
                 return task.Result;
             }
             return null;
-        }
-
-        private void btnClipOfGame_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }      
     }
 }
+
+
